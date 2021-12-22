@@ -1,8 +1,7 @@
-
-
 const numeriCasuali = 5;
 const timerSec = 10;
 const numbers = new Array(numeriCasuali);
+
 const numbersBox = document.getElementsByClassName("numbers-box")[0];
 const numbersHead = document.getElementsByClassName("numbers-head")[0];
 const numbersTextBox = document.getElementsByClassName("numbers")[0];
@@ -21,7 +20,6 @@ function render(){
     for (let i = 0; i < numeriCasuali; i++){
        numbers[i] = getRandomNumber(1, 100);
        string = [...numbers];
-       console.log(string);
        numbersTextBox.innerHTML = string;
     }
     numbersHead.innerText = "Osserva i seguenti numeri per "+timerSec +"s:";
@@ -30,7 +28,9 @@ function render(){
 
 function main(){
 
+    numbersTextBox.innerHTML = "";
     numbersBox.innerHTML = "";
+
     alert("Inserisci i numeri memorizzati nel loro ordine: ");
     const userNumbers = new Array(numeriCasuali);
 
@@ -38,14 +38,16 @@ function main(){
         userNumbers[i] = parseInt(prompt((i+1)+"° numero:").trim());
     }
 
-    let correctAnswers = getCorrectAnswers();
+    let correctAnswers = getCorrectAnswers(userNumbers);
+    console.log(correctAnswers);
 
     if (correctAnswers.length > 0 ){
 
-        numbers.innerHTML = [...correctAnswers];
-        numbersHead.innerText = "Le risposte corrette:"
+        numbers.innerHTML = correctAnswers;
+        numbersHead.innerText = correctAnswers.length + "/" +numeriCasuali+" Le risposte corrette:"
         numbersBox.append(numbersHead);
-        numbersBox.append(numbers);
+        numbersTextBox.append(correctAnswers);
+        numbersBox.append(numbersTextBox);
     }
     else {
         numbersHead.innerText = "Non hai memorizzato neanche un numero!";
@@ -54,13 +56,13 @@ function main(){
 }
 
 
-function getCorrectAnswers(){
+function getCorrectAnswers(answers){
 
     let correct = [];
 
-    for(let i=0; i < userNumbers.length; i++){
-        if (userNumbers[i] == numbers[i]){
-            correct[i] = i;
+    for(let i=0; i < answers.length; i++){
+        if (answers[i] == numbers[i]){
+            correct[i] = answers[i];
         }
     }
     return correct;
