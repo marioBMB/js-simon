@@ -1,0 +1,41 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    background-color: #c75de6;
+}
+
+.container {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+
+}
+
+.numbers-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: inline-block;
+
+}
+
+.numbers {
+    background-color: #2a13bf;
+    color:white;
+    font-size: 1.6rem;
+    border: 5px solid #56547d;
+    padding: 0.8rem;
+    text-align: center;
+    display: inline-block;
+}
+
+.numbers-head {
+    font-size: 1rem;
+}
