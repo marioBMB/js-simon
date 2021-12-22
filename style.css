@@ -39,3 +39,9 @@ body {
 .numbers-head {
     font-size: 1rem;
 }
+
+.correct {
+    color: green;
+    text-decoration: 2px 1px 2px white;
+    font-size: 1.7rem;
+}

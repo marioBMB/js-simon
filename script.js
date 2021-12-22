@@ -1,6 +1,6 @@
-const numeriCasuali = 5;
+const totNumbers = 5;
 const timerSec = 10;
-const numbers = new Array(numeriCasuali);
+const numbers = new Array(totNumbers);
 
 const numbersBox = document.getElementsByClassName("numbers-box")[0];
 const numbersHead = document.getElementsByClassName("numbers-head")[0];
@@ -16,11 +16,9 @@ window.addEventListener("DOMContentLoaded", function(){
 
 function render(){
 
-    let string = "";
-    for (let i = 0; i < numeriCasuali; i++){
+    for (let i = 0; i < totNumbers; i++){
        numbers[i] = getRandomNumber(1, 100);
-       string = [...numbers];
-       numbersTextBox.innerHTML = string;
+       numbersTextBox.innerHTML = [...numbers]
     }
     numbersHead.innerText = "Osserva i seguenti numeri per "+timerSec +"s:";
 }
@@ -31,22 +29,20 @@ function main(){
     numbersTextBox.innerHTML = "";
     numbersBox.innerHTML = "";
 
-    alert("Inserisci i numeri memorizzati nel loro ordine: ");
-    const userNumbers = new Array(numeriCasuali);
+    alert("Inserisci i numeri rispettando il loro ordine originario: ");
+    const userNumbers = new Array(totNumbers);
 
-    for (let i = 0; i < numeriCasuali; i++){
+    for (let i = 0; i < totNumbers; i++){
         userNumbers[i] = parseInt(prompt((i+1)+"° numero:").trim());
     }
 
-    let correctAnswers = getCorrectAnswers(userNumbers);
-    console.log(correctAnswers);
+    let rightAnswers = getCorrectAnswers(userNumbers);
 
-    if (correctAnswers.length > 0 ){
+    if (rightAnswers.length > 0){
 
-        numbers.innerHTML = correctAnswers;
-        numbersHead.innerText = correctAnswers.length + "/" +numeriCasuali+" Le risposte corrette:"
+        numbersHead.innerHTML = "Hai totalizzato " + rightAnswers.length + "/" +totNumbers+"<br> (risposte corrette in verde)"
         numbersBox.append(numbersHead);
-        numbersTextBox.append(correctAnswers);
+        numbersTextBox.innerHTML = formatAnswers(userNumbers, numbers);
         numbersBox.append(numbersTextBox);
     }
     else {
@@ -62,10 +58,23 @@ function getCorrectAnswers(answers){
 
     for(let i=0; i < answers.length; i++){
         if (answers[i] == numbers[i]){
-            correct[i] = answers[i];
+            correct.push(answers[i]);
         }
     }
     return correct;
+}
+
+
+function formatAnswers(inputAnswers, answers){
+
+    let formattedArr = [...answers];
+
+    for(let i=0; i < answers.length; i++){
+        if (inputAnswers[i] == answers[i]){
+            formattedArr[i] = "<span class='correct'>" + numbers[i] + "</span>";
+        }
+    }
+    return formattedArr;
 }
 
 
